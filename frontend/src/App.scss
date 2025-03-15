@@ -1,6 +1,4 @@
-* {
-  box-sizing: border-box;
-}
+@use "@/partials/_reset";
 
 :root {
   --col-accent: hsl(21, 90%, 48%);
@@ -19,14 +17,8 @@
 }
 
 body {
-  margin: 0;
-  line-height: 1.4;
   font-family: "Geist", sans-serif;
   background-color: var(--col-light);
-}
-
-img {
-  display: block;
 }
 
 input,
@@ -40,24 +32,7 @@ input {
   border: 1px solid var(--col-secondary-2);
 }
 
-h1,
-h2,
-h3,
-h4,
-p {
-  margin: 0;
-}
-
-button {
-  border: 0;
-  cursor: pointer;
-}
-
-a {
-  display: inline-block;
-}
-
-.inputGroup {
+.input-group {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;

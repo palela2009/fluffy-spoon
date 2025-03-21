@@ -1,6 +1,7 @@
 import express from "express"
 import mongoose from "mongoose"
 import bcrypt from "bcrypt"
+import cors from "cors"
 
 const saltRounds = 12
 
@@ -16,6 +17,12 @@ const userSchema = new mongoose.Schema(
 export const User = mongoose.model("User", userSchema)
 
 const app = express()
+
+app.use(
+  cors({
+    origin: "http://localhost:5173"
+  })
+)
 
 app.use(express.json())
 

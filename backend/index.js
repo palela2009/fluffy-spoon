@@ -2,8 +2,8 @@ import express from "express"
 import mongoose from "mongoose"
 import bcrypt from "bcrypt"
 import cors from "cors"
-
-const saltRounds = 12
+import session from "express-session"
+import MongoStore from "connect-mongo"
 
 const userSchema = new mongoose.Schema(
   {
@@ -20,16 +20,30 @@ const app = express()
 
 app.use(
   cors({
-    origin: "http://localhost:5173"
+    origin: "http://localhost:5173",
+    credentials: true
   })
 )
 
 app.use(express.json())
 
+app.use(
+  session({
+    secret: "alksdjflaksjdflasdjf",
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 3
+    },
+    store: MongoStore.create({
+      mongoUrl: "mongodb://127.0.0.1:27017/fluffy-spoon"
+    })
+  })
+)
+
 app.post("/users/register", async (req, res) => {
   const { username, email, password, confirmPassword } = req.body
 
   if (password === confirmPassword) {
+    const saltRounds = 12
     const hashedPassword = await bcrypt.hash(password, saltRounds)
 
     const newUser = new User({
@@ -55,12 +69,33 @@ app.post("/users/login", async (req, res) => {
     existingUser !== null &&
     (await bcrypt.compare(password, existingUser.password))
   ) {
+    req.session.userId = existingUser._id.toString()
     return res.json(existingUser)
   }
 
   return res.status(401).json({
     message: "Invalid username or password"
   })
+})
+
+app.get("/users/status", async (req, res) => {
+  // console.log(req.session.userId)
+
+  if (req.session.userId) {
+    const loggedInUser = await User.findById(req.session.userId).select(
+      "username email"
+    )
+
+    if (loggedInUser) {
+      return res.json({
+        user: loggedInUser.toObject()
+      })
+    }
+  }
+
+  return {
+    user: null
+  }
 })
 
 app.listen(3000, async () => {

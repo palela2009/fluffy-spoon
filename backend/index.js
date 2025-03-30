@@ -98,6 +98,15 @@ app.get("/users/status", async (req, res) => {
   }
 })
 
+app.delete("/user/logout", async (req, res) => {
+  res.clearCookie("connect.sid")
+  req.session.destroy()
+
+  res.json({
+    message: "Logged out"
+  })
+})
+
 app.listen(3000, async () => {
   console.log("Running on port 3000")
   try {

@@ -1,12 +1,14 @@
 import { createContext, useState, useEffect } from "react"
 
 export const AuthContext = createContext({
-  user: null
+  user: null,
+  loading: true
 })
 
 export const AuthContextProvider = ({ children }) => {
   const [authState, setAuthState] = useState({
-    user: null
+    user: null,
+    loading: true
   })
 
   useEffect(() => {
@@ -17,7 +19,7 @@ export const AuthContextProvider = ({ children }) => {
 
       const json = await response.json()
 
-      setAuthState(json)
+      setAuthState({ ...json, loading: false })
     }
 
     checkStatus()

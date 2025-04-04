@@ -29,14 +29,17 @@ export const AuthPage = () => {
 
     const user = await response.json()
 
-    setAuthState({
-      user: {
-        email: user.email,
-        username: user.username
-      }
-    })
+    console.log(response.ok)
 
-    navigate("/")
+    if (response.ok) {
+      setAuthState({
+        user: {
+          email: user.email,
+          username: user.username
+        }
+      })
+      navigate("/")
+    }
   }
 
   return (

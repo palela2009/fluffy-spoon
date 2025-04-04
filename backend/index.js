@@ -93,9 +93,9 @@ app.get("/users/status", async (req, res) => {
     }
   }
 
-  return {
+  return res.json({
     user: null
-  }
+  })
 })
 
 app.delete("/user/logout", async (req, res) => {

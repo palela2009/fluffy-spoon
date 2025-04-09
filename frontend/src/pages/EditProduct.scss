@@ -1,0 +1,232 @@
+* {
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 4rem;
+    justify-content: space-between;
+}
+
+h1 {
+    font-size: 2rem;
+    color: #18181b;
+}
+
+form {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+label {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+input,
+select,
+option {
+    width: 100%;
+    font-size: 1.2rem;
+    color: #18181b;
+    font-weight: 450;
+    padding: 0.8rem;
+    border: 0.1rem solid #e4e4e7;
+    border-radius: 0.5rem;
+}
+
+select {
+    width: 100%;
+}
+
+p {
+    font-size: 1.2rem;
+    color: #18181b;
+    font-weight: 600;
+}
+
+.pricing-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 0.3rem 1rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pricing-section p {
+    grid-row-start: 2;
+}
+
+.pricing-section label {
+    grid-row-start: 3;
+}
+
+#sale-switch {
+    width: fit-content;
+    flex-direction: row;
+    align-items: center;
+    color: #18181b;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+#sale-switch button {
+    width: fit-content;
+    width: 4rem;
+    height: 2rem;
+    border-radius: 2rem;
+    background-color: #e4e4e7;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 0.2rem;
+    cursor: pointer;
+}
+
+#sale{
+    background-color: #18181b;
+}
+
+#sale-switch button p {
+    width: 1lh;
+    height: 1lh;
+    background-color: #FFF;
+    border-radius: 50%;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.variants-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.variants-section figure {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.variants-section figure button {
+    border: 0.1rem solid #e4e4e7;
+    width: 9rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.variant-div {
+    border: 0.1rem solid #e4e4e7;
+    border-radius: 0.5rem;
+    padding: 1.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.variant-info-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    row-gap: 1rem;
+}
+
+.variant-info-wrapper label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+#upload-img-btn {
+    width: 100%;
+    color: #71717a;
+    font-size: 1.2rem;
+    padding: 0.8rem;
+}
+
+#image-previews {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 0.5rem;
+}
+
+#image-previews div {
+    display: flex;
+    gap: 0.5rem;
+}
+
+img {
+    width: 20rem;
+    height: 20rem;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+#available-sizes-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: start;
+}
+
+#available-sizes-wrapper div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#available-sizes-wrapper div:last-of-type {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+#available-sizes-wrapper div:last-of-type span {
+    margin-right: 1rem;
+    border: 0.1rem solid #e4e4e7;
+    border-radius: 50lh;
+    padding: 0.1rem 1rem;
+}
+
+.sizes {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#available-sizes-wrapper div figure {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 10fr 10fr 1fr;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#delete-size-btn {
+    border: 0;
+    transform: translateY(30%);
+
+}

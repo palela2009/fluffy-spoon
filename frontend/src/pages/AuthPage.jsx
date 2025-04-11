@@ -1,20 +1,53 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import "./Auth.scss"
 import { cn } from "../utils"
+import { useNavigate } from "react-router"
+import { AuthContext } from "../AuthContext.jsx"
 
 export const AuthPage = () => {
   // login or register
   const [activeForm, setActiveForm] = useState("login")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const navigate = useNavigate()
+  const { setAuthState } = useContext(AuthContext)
+
+  const authUser = async event => {
+    event.preventDefault()
+
+    const response = await fetch("http://localhost:3000/users/login", {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify({
+        email,
+        password
+      }),
+      headers: {
+        "content-type": "application/json"
+      }
+    })
+
+    const user = await response.json()
+
+    console.log(response.ok)
+
+    if (response.ok) {
+      setAuthState({
+        user: {
+          email: user.email,
+          username: user.username
+        }
+      })
+      navigate("/")
+    }
+  }
 
   return (
     <div className="form-container">
       <div className="form-switch">
         <button
           onClick={() => setActiveForm("login")}
-          className={cn(
-            "switch-btns",
-            activeForm === "login" && "active-btn"
-          )}
+          className={cn("switch-btns", activeForm === "login" && "active-btn")}
         >
           Login
         </button>
@@ -28,7 +61,7 @@ export const AuthPage = () => {
           Register
         </button>
       </div>
-      <form className="auth-form">
+      <form className="auth-form" onSubmit={authUser}>
         <h2 className="form-title">{activeForm}</h2>
         <p className="form-desc">
           {activeForm === "login"
@@ -45,11 +78,18 @@ export const AuthPage = () => {
         )}
         <div className="input-group">
           <label>Email</label>
-          <input placeholder="name@example.com" type="email" />
+          <input
+            placeholder="name@example.com"
+            type="email"
+            onChange={event => setEmail(event.target.value)}
+          />
         </div>
         <div className="input-group">
           <label>Password</label>
-          <input type="password" />
+          <input
+            type="password"
+            onChange={event => setPassword(event.target.value)}
+          />
         </div>
         {activeForm === "register" && (
           <>

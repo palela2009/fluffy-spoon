@@ -8,6 +8,7 @@ function App() {
   return (
     <Routes>
       <Route index element={<HomePage />} />
+
       <Route path="/auth" element={<AuthPage />} />
       <Route path="/dashboard" element={<Dashboard />} />
     </Routes>

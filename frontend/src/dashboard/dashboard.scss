@@ -1,9 +1,12 @@
+@use "../partials/functions";
+
+
 .dashboard {
   padding: 20px;
 }
 
 .dashboard-title {
-  font-size: 24px;
+  font-size: functions.rem(24px);
   margin-bottom: 20px;
 }
 
@@ -45,14 +48,14 @@
 }
 
 .summary-title {
-  font-size: 16px;
+  font-size: functions.rem(16px);
   font-weight: bold;
   margin: 0;
 }
 
 .summary-alert {
   display: block;
-  font-size: 12px;
+  font-size: functions.rem(12px);
   color: #777;
 }
 
@@ -87,7 +90,7 @@
   border: none;
   padding: 5px;
   outline: none;
-  font-size: 14px;
+  font-size: functions.rem(14px);
 }
 
 .search-icon {
@@ -99,7 +102,7 @@
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: functions.rem(14px);
   outline: none;
 }
 
@@ -110,14 +113,14 @@
   padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: functions.rem(14px);
   display: flex;
   align-items: center;
 }
 
 .add-icon {
   margin-right: 5px;
-  font-size: 16px;
+  font-size: functions.rem(16px);
 }
 
 .product-table {
@@ -136,7 +139,7 @@
   padding: 12px 15px;
   text-align: left;
   font-weight: bold;
-  font-size: 14px;
+  font-size: functions.rem(14px);
 }
 
 .table-body  {
@@ -149,14 +152,14 @@
 
 .table-data {
   padding: 10px 15px;
-  font-size: 14px;
+  font-size: functions.rem(14px);
 }
 
 .status {
   display: inline-block;
   padding: 5px 10px;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: functions.rem(12px);
   font-weight: bold;
 }
 
@@ -178,7 +181,7 @@
 .action-icon {
   margin-right: 8px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: functions.rem(16px);
   color: #555;
 }
 
@@ -198,7 +201,7 @@
   }
 
   .dashboard-title {
-    font-size: 20px;
+    font-size: 1.25rem;
     text-align: center;
   }
 
@@ -227,22 +230,22 @@
 
   .add-button {
     width: 100%;
-    font-size: 16px;
+    font-size: functions.rem(16px);
     padding: 12px;
   }
 
   .table-header,
   .table-data {
-    font-size: 12px;
+    font-size: functions.rem(12px);
     padding: 6px;
   }
 
   .action-icon {
-    font-size: 14px;
+    font-size: functions.rem(14px);
   }
 
   .status {
-    font-size: 10px;
+    font-size: functions.rem(10px);
     padding: 2px 6px;
   }
 }

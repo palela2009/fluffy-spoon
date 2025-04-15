@@ -46,6 +46,7 @@ export const EditProduct = () => {
     <>
       <h1>Edit Product</h1>
       <form action="">
+        {/* General info about the product listing */}
         <label htmlFor="productName">
           <p>Product Name</p>
           <input
@@ -61,13 +62,10 @@ export const EditProduct = () => {
 
           <select
             name="category"
-            id="category"
             value={form.values.category}
             onChange={form.handleChange}
           >
-            <option value="Athletic">
-              <span className="test">Athletic</span>
-            </option>
+            <option value="Athletic">Athletic</option>
             <option value="Fishing">Fishing</option>
           </select>
         </label>
@@ -96,28 +94,47 @@ export const EditProduct = () => {
           </label>
 
           <label htmlFor="onSale" id="sale-switch">
-            <button
-              type="button"
-              id={form.values.onSale ? "sale" : ""}
+            <input
+              type="checkbox"
+              id="onSale"
               name="onSale"
-              onClick={() => {
-                form.setFieldValue("onSale", !form.values.onSale)
-              }}
-            >
-              <p></p>
-            </button>
+              checked={form.values.onSale}
+              onChange={form.handleChange}
+            />
             <span>On Sale</span>
           </label>
         </section>
 
+        {/* Different variants of this listing */}
         <section className="variants-section">
           <figure>
-            <h2 style={{ width: "fit-content;" }}>Variants</h2>
-            <button type="button">+ Add Variant</button>
+            <h2 style={{ width: "fit-content" }}>Variants</h2>
+            <button
+              type="button"
+              onClick={() => {
+                form.setFieldValue("variants", [
+                  ...form.values.variants,
+                  {
+                    color: "",
+                    quantity: 0,
+                    images: [],
+                    sizes: []
+                  }
+                ])
+              }}
+            >
+              + Add Variant
+            </button>
           </figure>
 
-          {form.values.variants.map(variant => {
-            return <ProductVariant variant={variant} form={form} />
+          {form.values.variants.map((variant, index) => {
+            return (
+              <ProductVariant
+                variant={variant}
+                form={form}
+                originalIndex={index}
+              />
+            )
           })}
         </section>
       </form>

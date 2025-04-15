@@ -74,45 +74,13 @@ p {
 #sale-switch {
     width: fit-content;
     flex-direction: row;
-    align-items: center;
+    font-size: 1.2rem;
     color: #18181b;
     font-weight: 600;
-    font-size: 1.2rem;
 }
 
-#sale-switch button {
+#sale-switch input {
     width: fit-content;
-    width: 4rem;
-    height: 2rem;
-    border-radius: 2rem;
-    background-color: #e4e4e7;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    padding: 0.2rem;
-    cursor: pointer;
-}
-
-#sale{
-    background-color: #18181b;
-}
-
-#sale-switch button p {
-    width: 1lh;
-    height: 1lh;
-    background-color: #FFF;
-    border-radius: 50%;
-}
-
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: .4s;
 }
 
 .variants-section {
@@ -203,7 +171,7 @@ img {
     width: 100%;
 }
 
-#available-sizes-wrapper div:last-of-type span {
+#available-sizes-wrapper div:last-of-type span{
     margin-right: 1rem;
     border: 0.1rem solid #e4e4e7;
     border-radius: 50lh;
@@ -228,5 +196,4 @@ img {
 #delete-size-btn {
     border: 0;
     transform: translateY(30%);
-
 }

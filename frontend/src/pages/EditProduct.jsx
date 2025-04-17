@@ -94,13 +94,23 @@ export const EditProduct = () => {
           </label>
 
           <label htmlFor="onSale" id="sale-switch">
-            <input
-              type="checkbox"
-              id="onSale"
-              name="onSale"
-              checked={form.values.onSale}
-              onChange={form.handleChange}
-            />
+            <button
+              type="button"
+              onClick={() => {
+                document.getElementById("onSale").click()
+              }}
+              style={{ justifyContent: form.values.onSale ? "end" : "start" }}
+            >
+              <div id="sale-switch-ball"></div>
+              <input
+                type="checkbox"
+                id="onSale"
+                name="onSale"
+                checked={form.values.onSale}
+                onChange={form.handleChange}
+              />
+            </button>
+
             <span>On Sale</span>
           </label>
         </section>

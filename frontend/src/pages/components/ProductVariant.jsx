@@ -34,6 +34,18 @@ export const ProductVariant = ({ variant, form, originalIndex }) => {
     variantForm.setFieldValue("sizes", updatedSizes)
   }
 
+  const addVariantImage = image => {
+    const reader = new FileReader()
+    reader.onload = url => {
+      variantForm.setFieldValue("images", [
+        ...variantForm.values.images,
+        url.target.result
+      ])
+    }
+    reader.readAsDataURL(image)
+    console.log(variantForm.values.images)
+  }
+
   const deleteVariantSize = index => {
     const updatedSizes = variantForm.values.sizes.filter(size => {
       return size !== variantForm.values.sizes[index]
@@ -90,7 +102,26 @@ export const ProductVariant = ({ variant, form, originalIndex }) => {
 
         <label htmlFor="add-images">
           <p>Images</p>
-          <button type="button" id="upload-img-btn">
+
+          <button
+            type="button"
+            id="upload-img-btn"
+            onClick={() => {
+              document.getElementById(`file-upload${originalIndex}`).click()
+            }}
+          >
+            <input
+              type="file"
+              src=""
+              id={`file-upload${originalIndex}`}
+              name="add-images"
+              onChange={event => {
+                const files = event.target.files
+                Array.from(files).forEach(file => {
+                  addVariantImage(file)
+                })
+              }}
+            />
             📤 Upload Images
           </button>
         </label>

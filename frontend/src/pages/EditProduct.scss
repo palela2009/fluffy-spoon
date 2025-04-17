@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     position: relative;
+    box-sizing: border-box;
 }
 
 body {
@@ -79,8 +80,27 @@ p {
     font-weight: 600;
 }
 
+#sale-switch button {
+    background-color: #18181b;
+    width: 3rem;
+    height: 2rem;
+    border-radius: 50lh;
+    display: flex;
+    align-items: center;
+    padding: 0.2rem;
+
+}
+
+#sale-switch-ball {
+    background-color: #FFF;
+    height: 1lh;
+    width: 1lh;
+    border-radius: 50lh;
+}
+
 #sale-switch input {
     width: fit-content;
+    display: none;
 }
 
 .variants-section {
@@ -131,6 +151,10 @@ p {
     padding: 0.8rem;
 }
 
+#upload-img-btn input {
+    display: none;
+}
+
 #image-previews {
     display: flex;
     flex-direction: column;
@@ -139,7 +163,8 @@ p {
 }
 
 #image-previews div {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 0.5rem;
 }
 
@@ -171,7 +196,7 @@ img {
     width: 100%;
 }
 
-#available-sizes-wrapper div:last-of-type span{
+#available-sizes-wrapper div:last-of-type span {
     margin-right: 1rem;
     border: 0.1rem solid #e4e4e7;
     border-radius: 50lh;

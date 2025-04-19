@@ -65,8 +65,9 @@ export const ProductVariant = ({ variant, form, originalIndex }) => {
   return (
     <div className="variant-div">
       <figure>
-        <h3>Variant Details</h3>
+        <h2>Variant Details</h2>
         <button
+          id="delete-variant-btn"
           type="button"
           onClick={() => {
             deleteVariant(form, variant)
@@ -75,8 +76,6 @@ export const ProductVariant = ({ variant, form, originalIndex }) => {
           🗑️
         </button>
       </figure>
-      {console.log("Form:", form.values)}
-      {console.log("Variant:", variant)}
 
       {/* Variant info */}
       <figure className="variant-info-wrapper">
@@ -128,7 +127,7 @@ export const ProductVariant = ({ variant, form, originalIndex }) => {
       </figure>
 
       <figure id="image-previews">
-        <p>Image Previews</p>
+        <h2>Image Previews</h2>
         <div>
           {variant.images.map((url, index) => {
             return <img src={url} alt="product variant photo" />
@@ -139,7 +138,7 @@ export const ProductVariant = ({ variant, form, originalIndex }) => {
       {/* Variant sizes */}
       <figure id="available-sizes-wrapper">
         <div>
-          <h2>Available Sizes</h2>
+          <p>Available Sizes</p>
           <button
             type="button"
             onClick={() => {
@@ -195,7 +194,7 @@ export const ProductVariant = ({ variant, form, originalIndex }) => {
           })}
         </div>
 
-        <div>
+        <div id="size-summary-wrapper">
           <p>Size Summary</p>
           <p>
             {variantForm.values.sizes.map(size => {

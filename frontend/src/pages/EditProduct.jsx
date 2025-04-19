@@ -147,6 +147,10 @@ export const EditProduct = () => {
             )
           })}
         </section>
+
+        <button className="save-btn" type="button">
+          Save Product
+        </button>
       </form>
     </>
   )

@@ -7,7 +7,7 @@ export const HomePage = () => {
   const { authState, setAuthState } = useContext(AuthContext)
 
   const logout = async () => {
-    const response = await fetch("http://localhost:3000/user/logout", {
+    const response = await fetch("http://localhost:3000/users/logout", {
       method: "DELETE",
       credentials: "include"
     })

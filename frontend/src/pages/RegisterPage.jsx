@@ -30,8 +30,8 @@ export const RegisterPage = () => {
 
     setAuthState({
       user: {
-        username: json.username,
-        email: json.email
+        username: json.user.username,
+        email: json.user.email
       }
     })
 

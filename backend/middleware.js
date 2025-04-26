@@ -1,3 +1,5 @@
+import { User } from "./models.js"
+
 export const validateSchema = schema => {
   return async (req, res, next) => {
     try {

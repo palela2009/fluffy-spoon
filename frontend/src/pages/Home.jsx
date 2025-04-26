@@ -28,7 +28,10 @@ export const HomePage = () => {
             <button onClick={logout}>Logout</button>
           </>
         ) : (
-          <Link to="/auth">Auth</Link>
+          <>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
+          </>
         )}
       </nav>
       <h1 className="title">Welcome</h1>

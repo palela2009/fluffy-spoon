@@ -1,23 +1,33 @@
 import express from "express"
-import mongoose from "mongoose"
-import bcrypt from "bcrypt"
-import cors from "cors"
 import session from "express-session"
 import MongoStore from "connect-mongo"
+import mongoose from "mongoose"
+import bcrypt from "bcrypt"
+import { loginSchema, registerSchema } from "./schema.js"
+import { validateSchema, verifyAuth } from "./middleware.js"
+import { User } from "./models.js"
+import cors from "cors"
 
-const userSchema = new mongoose.Schema(
-  {
-    email: String,
-    username: String,
-    password: String
-  },
-  { timestamps: true }
+export const app = express()
+
+app.use(
+  session({
+    // HIDE IN PROD!
+    secret: "super secret",
+    resave: false,
+    saveUninitialized: false,
+    // rolling: true,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 3,
+      httpOnly: true
+    },
+    store: MongoStore.create({
+      mongoUrl: "mongodb://127.0.0.1:27017/fluffy-spoon",
+      stringify: false
+    })
+  })
 )
-
-export const User = mongoose.model("User", userSchema)
-
-const app = express()
-
+app.use(express.json())
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -25,93 +35,72 @@ app.use(
   })
 )
 
-app.use(express.json())
+app.get("/secret", verifyAuth, (req, res) => {
+  res.json({ secret: "2 x 2 = 4" })
+})
 
-app.use(
-  session({
-    secret: "alksdjflaksjdflasdjf",
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 3
-    },
-    store: MongoStore.create({
-      mongoUrl: "mongodb://127.0.0.1:27017/fluffy-spoon"
-    })
-  })
-)
+app.post(
+  "/users/register",
+  validateSchema(registerSchema),
+  async (req, res) => {
+    const registerValues = req.body
 
-app.post("/users/register", async (req, res) => {
-  const { username, email, password, confirmPassword } = req.body
+    const hashedPassword = await bcrypt.hash(registerValues.password, 12)
 
-  if (password === confirmPassword) {
-    const saltRounds = 12
-    const hashedPassword = await bcrypt.hash(password, saltRounds)
-
-    const newUser = new User({
-      username,
-      email,
+    const newUser = await User.create({
+      username: registerValues.username,
+      email: registerValues.email,
       password: hashedPassword
     })
+    req.session.userId = newUser._id.toString()
 
-    await newUser.save()
-
-    return res.status(201).json(newUser)
+    res.status(201).json({
+      user: {
+        username: newUser.username,
+        email: newUser.email
+      }
+    })
   }
+)
 
-  res.send("OK")
-})
-
-app.post("/users/login", async (req, res) => {
+app.post("/users/login", validateSchema(loginSchema), async (req, res) => {
   const { email, password } = req.body
 
-  const existingUser = await User.findOne({ email })
+  const existingUser = await User.findOne({ email }).exec()
 
-  if (
-    existingUser !== null &&
-    (await bcrypt.compare(password, existingUser.password))
-  ) {
+  if (existingUser && (await bcrypt.compare(password, existingUser.password))) {
     req.session.userId = existingUser._id.toString()
-    return res.json(existingUser)
+    return res.json({
+      message: "Logged in",
+      user: {
+        username: existingUser.username,
+        email: existingUser.email
+      }
+    })
   }
 
-  return res.status(401).json({
-    message: "Invalid username or password"
-  })
+  res.status(401).json({ message: "Email or password incorrect" })
 })
 
-app.get("/users/status", async (req, res) => {
-  // console.log(req.session.userId)
-
-  if (req.session.userId) {
-    const loggedInUser = await User.findById(req.session.userId).select(
-      "username email"
-    )
-
-    if (loggedInUser) {
-      return res.json({
-        user: loggedInUser.toObject()
-      })
-    }
-  }
-
-  return {
-    user: null
-  }
-})
-
-app.delete("/user/logout", async (req, res) => {
-  res.clearCookie("connect.sid")
+app.delete("/users/logout", async (req, res) => {
   req.session.destroy()
+  res.clearCookie("connect.sid")
 
-  res.json({
-    message: "Logged out"
-  })
+  res.json({ message: "Logged out" })
+})
+
+app.get("/users/status", verifyAuth, async (req, res) => {
+  // სატესტო დაყოვნებისთვის
+  // await fetch('http://httpbin.org/delay/2')
+
+  res.json({ user: req.user })
 })
 
 app.listen(3000, async () => {
   console.log("Running on port 3000")
   try {
     await mongoose.connect("mongodb://127.0.0.1:27017/fluffy-spoon")
-    console.log("Connected to the database")
+    console.log("Connected to the database: fluffy-spoon")
   } catch (error) {
     console.log(error)
   }

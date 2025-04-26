@@ -19,7 +19,7 @@ export const AuthContextProvider = ({ children }) => {
 
       const json = await response.json()
 
-      setAuthState({ ...json, loading: false })
+      setAuthState({ user: json.user, loading: false })
     }
 
     checkStatus()

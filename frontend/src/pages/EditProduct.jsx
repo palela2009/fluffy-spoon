@@ -143,7 +143,7 @@ export const EditProduct = () => {
           {form.values.variants.map((variant, index) => {
             return (
               <ProductVariant
-                key={variant.color + index}
+                key={form.values.variants[index].sizes + index}
                 variant={variant}
                 form={form}
                 originalIndex={index}

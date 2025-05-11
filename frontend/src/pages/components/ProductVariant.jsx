@@ -103,7 +103,7 @@ export const ProductVariant = ({ variant, form, originalIndex }) => {
         <h2>Image Previews</h2>
         <div>
           {variant.images.map((url, index) => {
-            return <img src={url} alt="product variant photo" />
+            return <img src={url} key={url} alt="product variant photo" />
           })}
         </div>
       </figure>
@@ -128,11 +128,12 @@ export const ProductVariant = ({ variant, form, originalIndex }) => {
         <div className="sizes">
           {variantForm.values.sizes.map((size, index) => {
             return (
-              <figure>
+              <figure key={size + index}>
                 <label htmlFor="men">
                   <p>Men's Size</p>
                   <input
                     type="text"
+                    key={size + index}
                     name="men"
                     value={size.men}
                     onChange={event => {
@@ -175,9 +176,9 @@ export const ProductVariant = ({ variant, form, originalIndex }) => {
         <div id="size-summary-wrapper">
           <p>Size Summary</p>
           <p>
-            {variantForm.values.sizes.map(size => {
+            {variantForm.values.sizes.map((size, index) => {
               return (
-                <span>
+                <span key={size + index}>
                   M {size.men} / W {size.women}
                 </span>
               )

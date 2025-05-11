@@ -1,12 +1,19 @@
 import { useFormik } from "formik"
 import { useEffect } from "react"
+import { Trash2, X, Upload } from "lucide-react"
+import {
+  changeSize,
+  addVariantImage,
+  deleteVariantSize,
+  deleteVariant
+} from "./ProductVariantFunctions"
 
 export const ProductVariant = ({ variant, form, originalIndex }) => {
   const variantForm = useFormik({
     initialValues: {
       color: variant.color,
       quantity: variant.quantity,
-      images: variant.images,
+      images: [...variant.images],
       sizes: [...variant.sizes]
     }
   })
@@ -27,41 +34,6 @@ export const ProductVariant = ({ variant, form, originalIndex }) => {
     form.setFieldValue("variants", updatedVariantsList)
   }, [variantForm.values])
 
-  const changeSize = (value, indexToChange, key) => {
-    const updatedSizes = variantForm.values.sizes.map((size, index) => {
-      return index === indexToChange ? { ...size, [key]: value } : size
-    })
-    variantForm.setFieldValue("sizes", updatedSizes)
-  }
-
-  const addVariantImage = image => {
-    const reader = new FileReader()
-    reader.onload = url => {
-      variantForm.setFieldValue("images", [
-        ...variantForm.values.images,
-        url.target.result
-      ])
-    }
-    reader.readAsDataURL(image)
-    console.log(variantForm.values.images)
-  }
-
-  const deleteVariantSize = index => {
-    const updatedSizes = variantForm.values.sizes.filter(size => {
-      return size !== variantForm.values.sizes[index]
-    })
-    variantForm.setFieldValue("sizes", updatedSizes)
-  }
-
-  const deleteVariant = (form, variant) => {
-    form.setFieldValue(
-      "variants",
-      form.values.variants.filter(currentVariant => {
-        return currentVariant !== variant
-      })
-    )
-  }
-
   return (
     <div className="variant-div">
       <figure>
@@ -73,7 +45,7 @@ export const ProductVariant = ({ variant, form, originalIndex }) => {
             deleteVariant(form, variant)
           }}
         >
-          🗑️
+          <Trash2 color="#ef4444" />
         </button>
       </figure>
 
@@ -111,17 +83,18 @@ export const ProductVariant = ({ variant, form, originalIndex }) => {
           >
             <input
               type="file"
-              src=""
               id={`file-upload${originalIndex}`}
               name="add-images"
               onChange={event => {
                 const files = event.target.files
                 Array.from(files).forEach(file => {
-                  addVariantImage(file)
+                  addVariantImage(file, variantForm)
                 })
               }}
             />
-            📤 Upload Images
+            <span>
+              <Upload color="#71717a" /> Upload Images
+            </span>
           </button>
         </label>
       </figure>
@@ -163,7 +136,7 @@ export const ProductVariant = ({ variant, form, originalIndex }) => {
                     name="men"
                     value={size.men}
                     onChange={event => {
-                      changeSize(event.target.value, index, "men")
+                      changeSize(event.target.value, index, "men", variantForm)
                     }}
                   />
                 </label>
@@ -175,7 +148,12 @@ export const ProductVariant = ({ variant, form, originalIndex }) => {
                     name="women"
                     value={size.women}
                     onChange={event => {
-                      changeSize(event.target.value, index, "women")
+                      changeSize(
+                        event.target.value,
+                        index,
+                        "women",
+                        variantForm
+                      )
                     }}
                   />
                 </label>
@@ -184,10 +162,10 @@ export const ProductVariant = ({ variant, form, originalIndex }) => {
                   id="delete-size-btn"
                   type="button"
                   onClick={() => {
-                    deleteVariantSize(index)
+                    deleteVariantSize(index, variantForm)
                   }}
                 >
-                  ❌
+                  <X color="#ef4444" />
                 </button>
               </figure>
             )

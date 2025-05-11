@@ -51,6 +51,7 @@ export const EditProduct = () => {
           <p>Product Name</p>
           <input
             type="text"
+            accept="image/*"
             name="productName"
             onChange={form.handleChange}
             value={form.values.productName}
@@ -137,9 +138,12 @@ export const EditProduct = () => {
             </button>
           </figure>
 
+          {console.log(form.values.variants)}
+
           {form.values.variants.map((variant, index) => {
             return (
               <ProductVariant
+                key={variant.color + index}
                 variant={variant}
                 form={form}
                 originalIndex={index}

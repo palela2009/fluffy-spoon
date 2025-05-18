@@ -6,6 +6,7 @@ import { AuthContext } from "./AuthContext"
 import { LoginPage } from "./pages/LoginPage"
 import { RegisterPage } from "./pages/RegisterPage"
 import { EditProduct } from "@/pages/EditProduct"
+import { Userpage } from "./Userpage/userpage"
 
 function App() {
   const ProtectedRoute = () => {
@@ -39,13 +40,13 @@ function App() {
   return (
     <Routes>
       <Route index element={<HomePage />} />
-
       <Route element={<RedirectIfLoggedIn />}>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
       </Route>
 
       <Route element={<ProtectedRoute />}>
+        <Route path="/userpage" element={<Userpage />} />
         <Route path="/secret" element={<h1>2 x 2 = 4</h1>} />
         <Route path="/edit-product" element={<EditProduct />} />
       </Route>

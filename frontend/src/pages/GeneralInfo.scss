@@ -1,0 +1,48 @@
+.pricing-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 0.3rem 1rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pricing-section p {
+    grid-row-start: 2;
+}
+
+.pricing-section label {
+    grid-row-start: 3;
+}
+
+#sale-switch {
+    width: fit-content;
+    flex-direction: row;
+    font-size: 1.2rem;
+    color: #18181b;
+    font-weight: 600;
+    align-items: center;
+}
+
+#sale-switch button {
+    background-color: #18181b;
+    width: 3rem;
+    height: 2rem;
+    border-radius: 50lh;
+    display: flex;
+    align-items: center;
+    padding: 0.2rem;
+
+}
+
+#sale-switch-ball {
+    background-color: #FFF;
+    height: 1lh;
+    width: 1lh;
+    border-radius: 50lh;
+}
+
+#sale-switch input {
+    width: fit-content;
+    display: none;
+}

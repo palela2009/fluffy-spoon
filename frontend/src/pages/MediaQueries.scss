@@ -1,0 +1,52 @@
+@media (max-width: 769px) {
+    * {
+        font-size: smaller;
+    }
+
+    body {
+        padding: 1.5rem 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .pricing-section {
+        grid-template-columns: 100%;
+    }
+
+    .pricing-section {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        gap: 0.5rem;
+    }
+
+    .pricing-section label {
+        margin-bottom: 1.5rem;
+    }
+
+    #image-previews div {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 426px) {
+    * {
+        font-size: smaller;
+    }
+
+    .variant-info-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    #image-previews div {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .save-btn {
+        width: 12rem;
+    }
+}
